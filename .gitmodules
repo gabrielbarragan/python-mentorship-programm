@@ -1,0 +1,3 @@
+[submodule "Python-case"]
+	path = Python-case
+	url = git@github.com:gabrielbarragan/Python-case.git
