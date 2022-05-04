@@ -1,3 +1,4 @@
+import re
 def menu():
     """
     no arguments.
@@ -37,13 +38,41 @@ def user_list():
         "reverse": 7,
     }
     print(menu())
-    num_commands = int(input("Por favor ingresa la cantidad de comandos que vas a usar: \n"))
+    num_commands=""
+    while type(num_commands) is not int:
+        num_commands = input("por favor ingresa la cantidad de comandos que vas a usar: \n")
+        try: 
+            num_commands = int(num_commands)
+        except TypeError:
+            print("el valor debe ser un número")
+        except ValueError:
+            print("el valor debe ser un número")
+
     intentos=[]
+    parametros=[]
+    result = []
     for value in range(0, num_commands):
         comando = input(">>")
-        intentos.append(comando)
-    print(intentos)
-    return intentos
+        parametros= [int(n) for n in re.findall(r'-?\d+\.?\d*', comando)]
+        
+        if comando.find('append') > -1:
+            result.append(parametros[0])
+        elif comando.find('insert') > -1:
+            result.insert(parametros[0], parametros[1])
+        elif comando.find('remove') > -1:
+            result.remove(parametros[0])
+        elif comando.find('remove') > -1:
+            result.pop()
+        elif comando.find('sort') > -1:
+            result.sort()
+        elif comando.find('reverse') > -1:
+            result.reverse()
+        else: 
+            raise Exception(f'el comando {comando} no es válido')
+
+        parametros = []
+    print(result)
+    return result
 
 if __name__=='__main__':
     user_list()
