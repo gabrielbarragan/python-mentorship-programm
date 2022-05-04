@@ -1,4 +1,5 @@
-import re
+import re, fileinput, sys 
+from io import StringIO
 def menu():
     """
     no arguments.
@@ -67,6 +68,8 @@ def user_list():
             result.sort()
         elif comando.find('reverse') > -1:
             result.reverse()
+        elif comando.find('pop') > -1:
+            result.pop()
         else: 
             raise Exception(f'el comando {comando} no es válido')
 
@@ -75,4 +78,8 @@ def user_list():
     return result
 
 if __name__=='__main__':
-    user_list()
+
+    print(user_list() == [15, 7, 8, 9, 3])
+    print(user_list() == [3, 7, 15, 20, 90, 100])
+    print(user_list() == [47, 7, 9, 15, 20, 90])
+
